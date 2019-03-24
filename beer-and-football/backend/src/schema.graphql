@@ -1,0 +1,9 @@
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+  createGame(title: String, description: String, place: String, gameDate: String): Game!
+}
+
+type Query {
+  games: [Game]!
+}

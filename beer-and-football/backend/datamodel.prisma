@@ -1,0 +1,14 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String!
+}
+
+type Game {
+  id: ID! @unique
+  title: String!
+  description: String!
+  place: String!
+  gameDate: String!
+  # user: User!
+}
