@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/dawid/beer-and-football/dev
-# timestamp: Sun Mar 24 2019 18:01:24 GMT+0100 (GMT+01:00)
+# timestamp: Wed Mar 27 2019 21:13:00 GMT+0100 (GMT+01:00)
 
 type AggregateGame {
   count: Int!
@@ -16,10 +16,12 @@ type BatchPayload {
 
 type Game implements Node {
   id: ID!
-  title: String!
+  players: Int!
+  city: String!
+  street: String!
+  date: String!
+  hour: String!
   description: String!
-  place: String!
-  gameDate: String!
 }
 
 """A connection to a list of items."""
@@ -34,10 +36,12 @@ type GameConnection {
 
 input GameCreateInput {
   id: ID
-  title: String!
+  players: Int!
+  city: String!
+  street: String!
+  date: String!
+  hour: String!
   description: String!
-  place: String!
-  gameDate: String!
 }
 
 """An edge in a connection."""
@@ -52,14 +56,18 @@ type GameEdge {
 enum GameOrderByInput {
   id_ASC
   id_DESC
-  title_ASC
-  title_DESC
+  players_ASC
+  players_DESC
+  city_ASC
+  city_DESC
+  street_ASC
+  street_DESC
+  date_ASC
+  date_DESC
+  hour_ASC
+  hour_DESC
   description_ASC
   description_DESC
-  place_ASC
-  place_DESC
-  gameDate_ASC
-  gameDate_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -68,10 +76,12 @@ enum GameOrderByInput {
 
 type GamePreviousValues {
   id: ID!
-  title: String!
+  players: Int!
+  city: String!
+  street: String!
+  date: String!
+  hour: String!
   description: String!
-  place: String!
-  gameDate: String!
 }
 
 type GameSubscriptionPayload {
@@ -114,17 +124,21 @@ input GameSubscriptionWhereInput {
 }
 
 input GameUpdateInput {
-  title: String
+  players: Int
+  city: String
+  street: String
+  date: String
+  hour: String
   description: String
-  place: String
-  gameDate: String
 }
 
 input GameUpdateManyMutationInput {
-  title: String
+  players: Int
+  city: String
+  street: String
+  date: String
+  hour: String
   description: String
-  place: String
-  gameDate: String
 }
 
 input GameWhereInput {
@@ -176,46 +190,188 @@ input GameWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  title: String
+  players: Int
 
   """All values that are not equal to given value."""
-  title_not: String
+  players_not: Int
 
   """All values that are contained in given list."""
-  title_in: [String!]
+  players_in: [Int!]
 
   """All values that are not contained in given list."""
-  title_not_in: [String!]
+  players_not_in: [Int!]
 
   """All values less than the given value."""
-  title_lt: String
+  players_lt: Int
 
   """All values less than or equal the given value."""
-  title_lte: String
+  players_lte: Int
 
   """All values greater than the given value."""
-  title_gt: String
+  players_gt: Int
 
   """All values greater than or equal the given value."""
-  title_gte: String
+  players_gte: Int
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
 
   """All values containing the given string."""
-  title_contains: String
+  city_contains: String
 
   """All values not containing the given string."""
-  title_not_contains: String
+  city_not_contains: String
 
   """All values starting with the given string."""
-  title_starts_with: String
+  city_starts_with: String
 
   """All values not starting with the given string."""
-  title_not_starts_with: String
+  city_not_starts_with: String
 
   """All values ending with the given string."""
-  title_ends_with: String
+  city_ends_with: String
 
   """All values not ending with the given string."""
-  title_not_ends_with: String
+  city_not_ends_with: String
+  street: String
+
+  """All values that are not equal to given value."""
+  street_not: String
+
+  """All values that are contained in given list."""
+  street_in: [String!]
+
+  """All values that are not contained in given list."""
+  street_not_in: [String!]
+
+  """All values less than the given value."""
+  street_lt: String
+
+  """All values less than or equal the given value."""
+  street_lte: String
+
+  """All values greater than the given value."""
+  street_gt: String
+
+  """All values greater than or equal the given value."""
+  street_gte: String
+
+  """All values containing the given string."""
+  street_contains: String
+
+  """All values not containing the given string."""
+  street_not_contains: String
+
+  """All values starting with the given string."""
+  street_starts_with: String
+
+  """All values not starting with the given string."""
+  street_not_starts_with: String
+
+  """All values ending with the given string."""
+  street_ends_with: String
+
+  """All values not ending with the given string."""
+  street_not_ends_with: String
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
+  hour: String
+
+  """All values that are not equal to given value."""
+  hour_not: String
+
+  """All values that are contained in given list."""
+  hour_in: [String!]
+
+  """All values that are not contained in given list."""
+  hour_not_in: [String!]
+
+  """All values less than the given value."""
+  hour_lt: String
+
+  """All values less than or equal the given value."""
+  hour_lte: String
+
+  """All values greater than the given value."""
+  hour_gt: String
+
+  """All values greater than or equal the given value."""
+  hour_gte: String
+
+  """All values containing the given string."""
+  hour_contains: String
+
+  """All values not containing the given string."""
+  hour_not_contains: String
+
+  """All values starting with the given string."""
+  hour_starts_with: String
+
+  """All values not starting with the given string."""
+  hour_not_starts_with: String
+
+  """All values ending with the given string."""
+  hour_ends_with: String
+
+  """All values not ending with the given string."""
+  hour_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -256,86 +412,6 @@ input GameWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
-  place: String
-
-  """All values that are not equal to given value."""
-  place_not: String
-
-  """All values that are contained in given list."""
-  place_in: [String!]
-
-  """All values that are not contained in given list."""
-  place_not_in: [String!]
-
-  """All values less than the given value."""
-  place_lt: String
-
-  """All values less than or equal the given value."""
-  place_lte: String
-
-  """All values greater than the given value."""
-  place_gt: String
-
-  """All values greater than or equal the given value."""
-  place_gte: String
-
-  """All values containing the given string."""
-  place_contains: String
-
-  """All values not containing the given string."""
-  place_not_contains: String
-
-  """All values starting with the given string."""
-  place_starts_with: String
-
-  """All values not starting with the given string."""
-  place_not_starts_with: String
-
-  """All values ending with the given string."""
-  place_ends_with: String
-
-  """All values not ending with the given string."""
-  place_not_ends_with: String
-  gameDate: String
-
-  """All values that are not equal to given value."""
-  gameDate_not: String
-
-  """All values that are contained in given list."""
-  gameDate_in: [String!]
-
-  """All values that are not contained in given list."""
-  gameDate_not_in: [String!]
-
-  """All values less than the given value."""
-  gameDate_lt: String
-
-  """All values less than or equal the given value."""
-  gameDate_lte: String
-
-  """All values greater than the given value."""
-  gameDate_gt: String
-
-  """All values greater than or equal the given value."""
-  gameDate_gte: String
-
-  """All values containing the given string."""
-  gameDate_contains: String
-
-  """All values not containing the given string."""
-  gameDate_not_contains: String
-
-  """All values starting with the given string."""
-  gameDate_starts_with: String
-
-  """All values not starting with the given string."""
-  gameDate_not_starts_with: String
-
-  """All values ending with the given string."""
-  gameDate_ends_with: String
-
-  """All values not ending with the given string."""
-  gameDate_not_ends_with: String
 }
 
 input GameWhereUniqueInput {

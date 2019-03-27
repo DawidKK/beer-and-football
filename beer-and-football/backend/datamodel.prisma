@@ -6,9 +6,11 @@ type User {
 
 type Game {
   id: ID! @unique
-  title: String!
+  players: Int!
+  city: String!
+  street: String!
+  date: String!
+  hour: String!
   description: String!
-  place: String!
-  gameDate: String!
   # user: User!
 }

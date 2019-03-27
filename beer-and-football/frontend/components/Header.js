@@ -3,6 +3,8 @@ import Nav from './Nav';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
+import HeaderStyles from './styles/HeaderStyles';
+
 Router.onRouteChangeStart = () => {
   NProgress.start();
 };
@@ -18,7 +20,10 @@ Router.onRouteChangeError = () => {
 const Header = () => {
   return (
     <>
-      <p>Header</p>
+      <HeaderStyles>
+        <img src="../static/img/logo.png" alt="logo beer and football" />
+        <p>Beer & Football</p>
+      </HeaderStyles>
       <Nav />
     </>
   );

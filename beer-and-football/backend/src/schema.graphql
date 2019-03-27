@@ -1,7 +1,15 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
-  createGame(title: String, description: String, place: String, gameDate: String): Game!
+  createGame(
+    city: String
+    street: String
+    date: String
+    hour: String
+    players: Int
+    description: String
+  ): Game!
+  createUser(name: String, email: String): User!
 }
 
 type Query {
