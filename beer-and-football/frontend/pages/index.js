@@ -1,7 +1,8 @@
 import React from 'react';
+import Games from '../components/Games';
 
 const Home = () => {
-  return <p>hej</p>;
+  return <Games />;
 };
 
 export default Home;
