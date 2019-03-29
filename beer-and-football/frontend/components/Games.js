@@ -51,3 +51,4 @@ class Games extends Component {
 }
 
 export default Games;
+export { ALL_GAMES_QUERY };

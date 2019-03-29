@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import Link from 'next/link';
 
 import styled from 'styled-components';
 import Error from './ErrorMessage';
 import Title from './styles/Title';
+import Button from './styles/Button';
+import DeleteGame from './DeleteGame';
 
 const SINGLE_GAME_QUERY = gql`
   query SINGLE_GAME_QUERY($id: ID!) {
     game(where: { id: $id }) {
+      id
       city
       street
       date
@@ -71,6 +75,15 @@ class SingleGame extends Component {
                 <div className="title-title">Opis:</div>
                 <div className="title-detail">{game.description}</div>
               </GameDetail>
+              <Link
+                href={{
+                  pathname: '/update',
+                  query: { id: this.props.id }
+                }}
+              >
+                <Button>Edytuj</Button>
+              </Link>
+              <DeleteGame id={this.props.id}>Usuń</DeleteGame>
             </>
           );
         }}
@@ -80,3 +93,4 @@ class SingleGame extends Component {
 }
 
 export default SingleGame;
+export { SINGLE_GAME_QUERY };

@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 
 import Form from './styles/Form';
+import { ALL_GAMES_QUERY } from './Games';
 
 const CREATE_GAME_MUTATION = gql`
   mutation CREATE_GAME_MUTATION(
@@ -43,13 +44,15 @@ class CreateGame extends Component {
     this.setState({
       [name]: val
     });
-
-    console.log(typeof this.state.players);
   };
 
   render() {
     return (
-      <Mutation variables={this.state} mutation={CREATE_GAME_MUTATION}>
+      <Mutation
+        variables={this.state}
+        mutation={CREATE_GAME_MUTATION}
+        refetchQueries={[{ query: ALL_GAMES_QUERY }]}
+      >
         {(createGame, { loading, error }) => (
           <Form
             onSubmit={async e => {
@@ -65,27 +68,68 @@ class CreateGame extends Component {
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="city">
                 Miasto
-                <input onChange={this.handleChange} name="city" id="city" type="text" />
+                <input
+                  required
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  name="city"
+                  id="city"
+                  type="text"
+                />
               </label>
               <label htmlFor="street">
                 Ulica
-                <input onChange={this.handleChange} name="street" id="street" type="text" />
+                <input
+                  required
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  name="street"
+                  id="street"
+                  type="text"
+                />
               </label>
               <label htmlFor="date">
                 Data
-                <input onChange={this.handleChange} name="date" id="date" type="text" />
+                <input
+                  required
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  name="date"
+                  id="date"
+                  type="text"
+                />
               </label>
               <label htmlFor="hour">
                 Godzina
-                <input onChange={this.handleChange} name="hour" id="hour" type="text" />
+                <input
+                  required
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  name="hour"
+                  id="hour"
+                  type="text"
+                />
               </label>
               <label htmlFor="players">
                 Liczba potrzebnych graczy
-                <input onChange={this.handleChange} name="players" id="players" type="number" />
+                <input
+                  required
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  name="players"
+                  id="players"
+                  type="number"
+                />
               </label>
               <label htmlFor="description">
                 Opis
-                <textarea onChange={this.handleChange} name="description" id="description" />
+                <textarea
+                  required
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  name="description"
+                  id="description"
+                />
               </label>
               <input type="submit" value="Wyślij" />
             </fieldset>

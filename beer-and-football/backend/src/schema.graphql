@@ -9,6 +9,16 @@ type Mutation {
     players: Int
     description: String
   ): Game!
+  updateGame(
+    id: ID
+    city: String
+    street: String
+    date: String
+    hour: String
+    players: Int
+    description: String
+  ): Game!
+  deleteGame(id: ID!): Game
   createUser(name: String, email: String): User!
 }
 
