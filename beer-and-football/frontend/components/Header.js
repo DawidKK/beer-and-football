@@ -4,6 +4,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 
 import HeaderStyles from './styles/HeaderStyles';
+import User from './User';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -22,7 +23,13 @@ const Header = () => {
     <>
       <HeaderStyles>
         <img src="../static/img/logo.png" alt="logo beer and football" />
-        <p>Beer & Football</p>
+        <p className="sub-title">Beer & Football</p>
+        <User>
+          {({ data: { me } }) => {
+            if (me) return <p className="login-name">Siemasz {me.name}!</p>;
+            return null;
+          }}
+        </User>
       </HeaderStyles>
       <Nav />
     </>

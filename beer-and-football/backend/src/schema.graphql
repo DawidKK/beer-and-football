@@ -25,4 +25,5 @@ type Mutation {
 type Query {
   games: [Game]!
   game(where: GameWhereUniqueInput!): Game
+  me: User
 }
