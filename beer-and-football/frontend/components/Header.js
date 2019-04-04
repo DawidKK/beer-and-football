@@ -5,6 +5,7 @@ import NProgress from 'nprogress';
 
 import HeaderStyles from './styles/HeaderStyles';
 import User from './User';
+import Signout from './Signout';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -26,7 +27,16 @@ const Header = () => {
         <p className="sub-title">Beer & Football</p>
         <User>
           {({ data: { me } }) => {
-            if (me) return <p className="login-name">Siemasz {me.name}!</p>;
+            if (me) {
+              return (
+                <>
+                  <p className="login-name">
+                    Siemasz {me.name}! <br />
+                    <Signout />
+                  </p>
+                </>
+              );
+            }
             return null;
           }}
         </User>

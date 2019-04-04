@@ -21,7 +21,7 @@ const HeaderStyles = styled.div`
   p.login-name {
     position: absolute;
     top: 0;
-    right: 15px;
+    right: 45px;
   }
 `;
 export default HeaderStyles;
