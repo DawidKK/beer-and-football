@@ -3,9 +3,18 @@ const jwt = require('jsonwebtoken');
 
 const mutations = {
   async createGame(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('Musisz być zalogowany ziom!');
+    }
+
     const game = await ctx.db.mutation.createGame(
       {
         data: {
+          user: {
+            connect: {
+              id: ctx.request.userId
+            }
+          },
           ...args
         }
       },
