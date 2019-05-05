@@ -4,17 +4,22 @@ enum Permission {
 }
 
 type User {
-  id: ID! @unique
+  id: ID! @Unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
   name: String!
-  email: String! @unique
+  email: String! @Unique
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  permissions: [Permission]
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  games: [Game!]!
 }
 
 type Game {
-  id: ID! @unique
+  id: ID! @Unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
   players: Int!
   city: String!
   street: String!

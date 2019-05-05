@@ -9,6 +9,15 @@ const CURRENT_USER_QUERY = gql`
       email
       name
       permissions
+      games {
+        id
+        city
+        street
+        date
+        hour
+        players
+        description
+      }
     }
   }
 `;

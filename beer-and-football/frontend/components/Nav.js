@@ -23,7 +23,7 @@ const Nav = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/index">
+                <Link href="/userpanel">
                   <a>Moje meczyki</a>
                 </Link>
               </li>

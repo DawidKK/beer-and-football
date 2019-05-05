@@ -5,6 +5,7 @@ import Router from 'next/router';
 
 import Form from './styles/Form';
 import { ALL_GAMES_QUERY } from './Games';
+import { CURRENT_USER_QUERY } from './User';
 
 const CREATE_GAME_MUTATION = gql`
   mutation CREATE_GAME_MUTATION(
@@ -51,7 +52,7 @@ class CreateGame extends Component {
       <Mutation
         variables={this.state}
         mutation={CREATE_GAME_MUTATION}
-        refetchQueries={[{ query: ALL_GAMES_QUERY }]}
+        refetchQueries={[{ query: ALL_GAMES_QUERY }, { query: CURRENT_USER_QUERY }]}
       >
         {(createGame, { loading, error }) => (
           <Form

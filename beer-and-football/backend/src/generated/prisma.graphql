@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/dawid/beer-and-football/dev
-# timestamp: Tue Apr 09 2019 20:21:05 GMT+0200 (GMT+02:00)
+# timestamp: Sun May 05 2019 18:53:09 GMT+0200 (GMT+02:00)
 
 type AggregateGame {
   count: Int!
@@ -14,8 +14,12 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 type Game implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   players: Int!
   city: String!
   street: String!
@@ -43,7 +47,22 @@ input GameCreateInput {
   date: String!
   hour: String!
   description: String!
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutGamesInput!
+}
+
+input GameCreateManyWithoutUserInput {
+  create: [GameCreateWithoutUserInput!]
+  connect: [GameWhereUniqueInput!]
+}
+
+input GameCreateWithoutUserInput {
+  id: ID
+  players: Int!
+  city: String!
+  street: String!
+  date: String!
+  hour: String!
+  description: String!
 }
 
 """An edge in a connection."""
@@ -58,6 +77,10 @@ type GameEdge {
 enum GameOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   players_ASC
   players_DESC
   city_ASC
@@ -70,20 +93,335 @@ enum GameOrderByInput {
   hour_DESC
   description_ASC
   description_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type GamePreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   players: Int!
   city: String!
   street: String!
   date: String!
   hour: String!
   description: String!
+}
+
+input GameScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  players: Int
+
+  """All values that are not equal to given value."""
+  players_not: Int
+
+  """All values that are contained in given list."""
+  players_in: [Int!]
+
+  """All values that are not contained in given list."""
+  players_not_in: [Int!]
+
+  """All values less than the given value."""
+  players_lt: Int
+
+  """All values less than or equal the given value."""
+  players_lte: Int
+
+  """All values greater than the given value."""
+  players_gt: Int
+
+  """All values greater than or equal the given value."""
+  players_gte: Int
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
+
+  """All values containing the given string."""
+  city_contains: String
+
+  """All values not containing the given string."""
+  city_not_contains: String
+
+  """All values starting with the given string."""
+  city_starts_with: String
+
+  """All values not starting with the given string."""
+  city_not_starts_with: String
+
+  """All values ending with the given string."""
+  city_ends_with: String
+
+  """All values not ending with the given string."""
+  city_not_ends_with: String
+  street: String
+
+  """All values that are not equal to given value."""
+  street_not: String
+
+  """All values that are contained in given list."""
+  street_in: [String!]
+
+  """All values that are not contained in given list."""
+  street_not_in: [String!]
+
+  """All values less than the given value."""
+  street_lt: String
+
+  """All values less than or equal the given value."""
+  street_lte: String
+
+  """All values greater than the given value."""
+  street_gt: String
+
+  """All values greater than or equal the given value."""
+  street_gte: String
+
+  """All values containing the given string."""
+  street_contains: String
+
+  """All values not containing the given string."""
+  street_not_contains: String
+
+  """All values starting with the given string."""
+  street_starts_with: String
+
+  """All values not starting with the given string."""
+  street_not_starts_with: String
+
+  """All values ending with the given string."""
+  street_ends_with: String
+
+  """All values not ending with the given string."""
+  street_not_ends_with: String
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
+  hour: String
+
+  """All values that are not equal to given value."""
+  hour_not: String
+
+  """All values that are contained in given list."""
+  hour_in: [String!]
+
+  """All values that are not contained in given list."""
+  hour_not_in: [String!]
+
+  """All values less than the given value."""
+  hour_lt: String
+
+  """All values less than or equal the given value."""
+  hour_lte: String
+
+  """All values greater than the given value."""
+  hour_gt: String
+
+  """All values greater than or equal the given value."""
+  hour_gte: String
+
+  """All values containing the given string."""
+  hour_contains: String
+
+  """All values not containing the given string."""
+  hour_not_contains: String
+
+  """All values starting with the given string."""
+  hour_starts_with: String
+
+  """All values not starting with the given string."""
+  hour_not_starts_with: String
+
+  """All values ending with the given string."""
+  hour_ends_with: String
+
+  """All values not ending with the given string."""
+  hour_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
 }
 
 type GameSubscriptionPayload {
@@ -132,7 +470,16 @@ input GameUpdateInput {
   date: String
   hour: String
   description: String
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutGamesInput
+}
+
+input GameUpdateManyDataInput {
+  players: Int
+  city: String
+  street: String
+  date: String
+  hour: String
+  description: String
 }
 
 input GameUpdateManyMutationInput {
@@ -142,6 +489,43 @@ input GameUpdateManyMutationInput {
   date: String
   hour: String
   description: String
+}
+
+input GameUpdateManyWithoutUserInput {
+  create: [GameCreateWithoutUserInput!]
+  connect: [GameWhereUniqueInput!]
+  set: [GameWhereUniqueInput!]
+  disconnect: [GameWhereUniqueInput!]
+  delete: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [GameUpdateManyWithWhereNestedInput!]
+  deleteMany: [GameScalarWhereInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input GameUpdateManyWithWhereNestedInput {
+  where: GameScalarWhereInput!
+  data: GameUpdateManyDataInput!
+}
+
+input GameUpdateWithoutUserDataInput {
+  players: Int
+  city: String
+  street: String
+  date: String
+  hour: String
+  description: String
+}
+
+input GameUpdateWithWhereUniqueWithoutUserInput {
+  where: GameWhereUniqueInput!
+  data: GameUpdateWithoutUserDataInput!
+}
+
+input GameUpsertWithWhereUniqueWithoutUserInput {
+  where: GameWhereUniqueInput!
+  update: GameUpdateWithoutUserDataInput!
+  create: GameCreateWithoutUserInput!
 }
 
 input GameWhereInput {
@@ -193,6 +577,50 @@ input GameWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   players: Int
 
   """All values that are not equal to given value."""
@@ -429,18 +857,18 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createGame(data: GameCreateInput!): Game!
   createUser(data: UserCreateInput!): User!
-  updateGame(data: GameUpdateInput!, where: GameWhereUniqueInput!): Game
+  createGame(data: GameCreateInput!): Game!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteGame(where: GameWhereUniqueInput!): Game
+  updateGame(data: GameUpdateInput!, where: GameWhereUniqueInput!): Game
   deleteUser(where: UserWhereUniqueInput!): User
-  upsertGame(where: GameWhereUniqueInput!, create: GameCreateInput!, update: GameUpdateInput!): Game!
+  deleteGame(where: GameWhereUniqueInput!): Game
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyGames(data: GameUpdateManyMutationInput!, where: GameWhereInput): BatchPayload!
+  upsertGame(where: GameWhereUniqueInput!, create: GameCreateInput!, update: GameUpdateInput!): Game!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  deleteManyGames(where: GameWhereInput): BatchPayload!
+  updateManyGames(data: GameUpdateManyMutationInput!, where: GameWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyGames(where: GameWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -476,12 +904,12 @@ enum Permission {
 }
 
 type Query {
-  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  game(where: GameWhereUniqueInput!): Game
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game]!
   user(where: UserWhereUniqueInput!): User
-  gamesConnection(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameConnection!
+  game(where: GameWhereUniqueInput!): Game
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  gamesConnection(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -491,18 +919,21 @@ type Query {
 }
 
 type Subscription {
-  game(where: GameSubscriptionWhereInput): GameSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  game(where: GameSubscriptionWhereInput): GameSubscriptionPayload
 }
 
 type User implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   name: String!
   email: String!
   password: String!
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game!]
 }
 
 """A connection to a list of items."""
@@ -523,15 +954,26 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  games: GameCreateManyWithoutUserInput
 }
 
-input UserCreateOneInput {
-  create: UserCreateInput
+input UserCreateOneWithoutGamesInput {
+  create: UserCreateWithoutGamesInput
   connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
   set: [Permission!]
+}
+
+input UserCreateWithoutGamesInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
 }
 
 """An edge in a connection."""
@@ -546,6 +988,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   name_ASC
   name_DESC
   email_ASC
@@ -556,14 +1002,12 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   name: String!
   email: String!
   password: String!
@@ -611,15 +1055,6 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
-input UserUpdateDataInput {
-  name: String
-  email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserUpdatepermissionsInput
-}
-
 input UserUpdateInput {
   name: String
   email: String
@@ -627,6 +1062,7 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  games: GameUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -638,20 +1074,29 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
-input UserUpdateOneRequiredInput {
-  create: UserCreateInput
+input UserUpdateOneRequiredWithoutGamesInput {
+  create: UserCreateWithoutGamesInput
   connect: UserWhereUniqueInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
+  update: UserUpdateWithoutGamesDataInput
+  upsert: UserUpsertWithoutGamesInput
 }
 
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
 
-input UserUpsertNestedInput {
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
+input UserUpdateWithoutGamesDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpsertWithoutGamesInput {
+  update: UserUpdateWithoutGamesDataInput!
+  create: UserCreateWithoutGamesInput!
 }
 
 input UserWhereInput {
@@ -703,6 +1148,50 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   name: String
 
   """All values that are not equal to given value."""
@@ -885,9 +1374,11 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  games_every: GameWhereInput
+  games_some: GameWhereInput
+  games_none: GameWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
-  email: String
 }
